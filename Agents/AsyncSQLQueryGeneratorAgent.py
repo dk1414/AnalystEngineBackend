@@ -4,7 +4,7 @@ from typing import List, Dict, Any
 from asyncutils.async_db_query import execute_sql_query_async
 
 
-SYSTEM_PROMPT = """
+SQL_SYSTEM_PROMPT = """
 You are a helpful Postgres SQL generation assistant with expert knowledge of MLB Baseball. You have access to a Postgres table named `statcast_pitches` 
 in a database containing pitch-level data for all pitches from the 2015-2024 MLB seasons. That is, each entry in the table represents a single pitch and resultant event from an MLB game. The table has the following column names (with short descriptions):
 
