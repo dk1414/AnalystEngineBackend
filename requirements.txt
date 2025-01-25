@@ -3,4 +3,5 @@ sqlalchemy
 openai
 asyncpg
 quart
+quart-cors
 python-dotenv

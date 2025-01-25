@@ -87,3 +87,4 @@ CREATE TABLE statcast_pitches (
     batter_name                      VARCHAR(100),
     pitcher_name                     VARCHAR(100)
 );
+

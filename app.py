@@ -1,13 +1,14 @@
 import os
 import asyncio
 from quart import Quart, request, jsonify
+from quart_cors import cors
 from typing import Optional
 import base64
 
 from dotenv import load_dotenv
 load_dotenv()
 
-# Example placeholders for your actual classes
+
 from openai import AsyncOpenAI
 from asyncutils.async_db_connection import get_async_engine
 from Agents.AsyncSQLQueryGeneratorAgent import AsyncSQLQueryGeneratorAgent
@@ -15,6 +16,7 @@ from Agents.VisualizationAgent import VisualizationAgent
 from Agents.AnalystAgent import AnalystAgent
 
 app = Quart(__name__)
+app = cors(app, allow_origin="*")
 
 # Global references
 openai_client: Optional[AsyncOpenAI] = None
@@ -50,7 +52,6 @@ async def startup():
     print("[startup] SQL Query Agent created")
 
     # 4) Create the Visualization Agent
-    # Suppose you have an existing 'viz_asst_id'
     viz_asst_id = os.getenv("VIZ_ASSIST_ID", "")
 
     viz_agent = VisualizationAgent(
@@ -60,8 +61,7 @@ async def startup():
     )
     print("[startup] Visualization Agent created")
 
-    # 5) Create your "Analyst Assistant"
-    # Suppose we already have an ID for it
+    # 5) Create "Analyst Assistant"
     analyst_asst_id = os.getenv("ANALYST_ASSIST_ID")
     analyst_agent = AnalystAgent(
         openai_client=openai_client,
@@ -196,7 +196,7 @@ async def parse_message(msg):
         "image": image
     }
 
-
+# For local runs
 if __name__ == "__main__":
     app.run(debug=True, port=int(os.getenv("PORT", 5000)))
 
